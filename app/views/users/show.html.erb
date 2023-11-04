@@ -1,0 +1,12 @@
+<h1>Perfil do Usuário</h1>
+  <p>Seu saldo atual é: <%= current_user.balance %></p>
+
+  <%= form_tag(user_add_money_user_path(current_user)) do %>
+    <div>
+      <%= label_tag :amount, "Adicionar dinheiro à sua conta:" %>
+      <%= text_field_tag :amount %>
+      <%= submit_tag "Adicionar" %>
+    </div>
+  <% end %>
+
+  <%= link_to 'Voltar para Coins', coins_path %>

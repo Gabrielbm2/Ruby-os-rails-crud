@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_02_132611) do
+ActiveRecord::Schema.define(version: 2023_11_04_204238) do
+
+  create_table "coin_purchases", force: :cascade do |t|
+    t.integer "coin_id", null: false
+    t.integer "user_id", null: false
+    t.decimal "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coin_id"], name: "index_coin_purchases_on_coin_id"
+    t.index ["user_id"], name: "index_coin_purchases_on_user_id"
+  end
 
   create_table "coins", force: :cascade do |t|
     t.string "description"
@@ -28,6 +38,7 @@ ActiveRecord::Schema.define(version: 2023_11_02_132611) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "balance", default: 0.0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -39,4 +50,15 @@ ActiveRecord::Schema.define(version: 2023_11_02_132611) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "wallets", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.decimal "balance"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_wallets_on_user_id"
+  end
+
+  add_foreign_key "coin_purchases", "coins"
+  add_foreign_key "coin_purchases", "users"
+  add_foreign_key "wallets", "users"
 end
