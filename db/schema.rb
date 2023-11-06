@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_04_204238) do
+ActiveRecord::Schema.define(version: 2023_11_06_145733) do
 
   create_table "coin_purchases", force: :cascade do |t|
     t.integer "coin_id", null: false
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2023_11_04_204238) do
     t.string "url_image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "price"
   end
 
   create_table "users", force: :cascade do |t|

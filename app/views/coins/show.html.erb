@@ -18,6 +18,7 @@
   <%= @vote_count %>
 </p>
 
+<%= button_to 'Comprar', buy_coin_path(@coin), method: :post %>
 <%= link_to "Vote", vote_coin_path(@coin), method: :post, class: "btn btn-primary" %>
 
 <%= link_to 'Edit', edit_coin_path(@coin) %> |

@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :coins
+  resources :coins do
+    member do
+      post 'vote', to: 'coins#vote'
+    end
+  end
 
   resources :users, only: [:show] do
     member do
@@ -9,6 +13,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :coins do
+    member do
+      post :buy
+    end
+  end
+  
   get 'user_profile', to: 'users#show', as: 'user_profile'
 
   root to: 'welcome#index'

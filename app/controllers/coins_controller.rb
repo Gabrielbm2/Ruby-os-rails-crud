@@ -7,10 +7,23 @@ class CoinsController < ApplicationController
     @coins = Coin.all
   end
 
+  def buy
+    @coin = Coin.find(params[:id])
+    if @coin.price && current_user.balance >= @coin.price
+      current_user.balance -= @coin.price
+      current_user.coins << @coin
+      current_user.save
+      redirect_to @coin, notice: 'Moeda comprada com sucesso!'
+    else
+      redirect_to @coin, alert: 'Saldo insuficiente ou preço da moeda não definido!'
+    end
+  end
+  
+
   # GET /coins/1 or /coins/1.json
   def show
     @coin = Coin.find(params[:id])
-    @vote = current_user.votes.find_by(coin_id: @coin.id)
+    @vote = current_user&.votes&.find_by(coin_id: @coin.id)
     @vote_count = @coin.votes.count
   end
 
